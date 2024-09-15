@@ -1,13 +1,15 @@
-import { Text, View, ScrollView } from "react-native";import Constants from 'expo-constants'
-import { Login } from "../components/login";
+import * as React from 'react';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
+import { Login } from "../screens/login";
+import { Home } from '../screens/home';
 
-
-const statusBarHeight = Constants.statusBarHeight
+const Stack = createNativeStackNavigator();
 
 export default function Index() {
   return (
-    <View style={{flex: 1}} className="justify-center items-center">
-      <Login />
-    </View>
+      <Stack.Navigator>
+        <Stack.Screen name="Login" component={Login} options={{ headerShown: false }} />
+        <Stack.Screen name="Home" component={Home} options={{ headerShown: false }} />
+      </Stack.Navigator>
   );
 }

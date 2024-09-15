@@ -1,10 +1,16 @@
 
 import { useState } from 'react';
 import { View, Text, Pressable, Image, TextInput } from 'react-native';
+import { useNavigation } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
+import { RootStackParamList } from '../types'; // Ajuste o caminho conforme necessário
+
+type LoginScreenNavigationProp = StackNavigationProp<RootStackParamList, 'Login'>;
 
 export function Login() {
   const [user, setUser] = useState('');
   const [password, setPassword] = useState('');
+  const navigation = useNavigation<LoginScreenNavigationProp>();
   function handleLogin() {
     if(user === '' || password === '') {
       alert("Preencha todos os campos");
@@ -16,8 +22,10 @@ export function Login() {
       password     
     }
     console.log(data);
+    navigation.navigate('Home');
   }
  return (
+  <View style={{flex: 1}} className='flex justify-center items-center'>
     <View className="flex justify-center items-center rounded-lg h-auto shadow-xl bg-white p-3">
         <Image source={require('../../assets/logo-cb.png')} className='w-24 h-24 rounded'/>
         <TextInput 
@@ -44,5 +52,7 @@ export function Login() {
       </Pressable>
         
     </View>
+  </View>
+    
   );
 }
