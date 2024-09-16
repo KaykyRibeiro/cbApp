@@ -1,9 +1,21 @@
-import { View, Text } from 'react-native';
+import { Header } from '@/src/components/header';
+import { View, Text, ScrollView, StatusBar } from 'react-native';
+
+
+import Constants from 'expo-constants';
+
+const statusBarHeight = Constants.statusBarHeight;
 
 export function Home() {
  return (
-    <View>
-      <Text>Home</Text>
-    </View>
+  <ScrollView
+     style={{ flex: 1 }}
+     className='bg-white'
+     showsVerticalScrollIndicator={false}
+   >
+     <View className='w-full' >
+       <Header/>
+     </View>
+   </ScrollView>
   );
 }
