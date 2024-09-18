@@ -12,9 +12,11 @@ export function Login() {
   const [password, setPassword] = useState('');
   const navigation = useNavigation<LoginScreenNavigationProp>();
   function handleLogin() {
-    if(user === '' || password === '') {
-      alert("Preencha todos os campos");
+    if(user === 'admin' && password === 'admin') {
+      navigation.navigate('Home');
       return;
+    }else{
+      alert('Insira dados válidos!');
     }
 
     const data = {
@@ -22,7 +24,6 @@ export function Login() {
       password     
     }
     console.log(data);
-    navigation.navigate('Home');
   }
  return (
   <View style={{flex: 1}} className='flex justify-center items-center'>

@@ -3,6 +3,7 @@ import { View, Text, ScrollView, StatusBar } from 'react-native';
 
 
 import Constants from 'expo-constants';
+import React from 'react';
 
 const statusBarHeight = Constants.statusBarHeight;
 
