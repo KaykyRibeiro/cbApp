@@ -7,7 +7,7 @@ const statusBarHeight = Constants.statusBarHeight;
 export function Header() {
  return (
     <View 
-        className='bg-white flex flex-row justify-between items-center w-full mb-4 px-4 pb-1 shadow-lg shadow-blue-500/40' 
+        className='bg-white flex flex-row justify-between items-center w-full mb-4 px-4 pb-1 shadow-lg shadow-blue-500/40 fixed' 
         style={{ paddingTop: statusBarHeight + 10}}
     >
         <Image 
