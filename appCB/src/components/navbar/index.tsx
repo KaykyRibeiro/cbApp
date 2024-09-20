@@ -1,25 +1,25 @@
 import { Pressable, View, Image, Text } from 'react-native';
-
+import { Ionicons, Feather, FontAwesome6, Entypo   } from '@expo/vector-icons';
 export function Navbar() {
  return (
     <View 
       className='bg-white flex flex-row justify-between items-center w-full h-28 px-8 pb-1 shadow-md shadow-blue-500/40' 
     >
       <Pressable className='flex justify-center items-center mx-2'>
-        <Image/>
+        <Ionicons name="home" size={24} color="#dc2626" />
         <Text className='color-red-700'>
           Inicio
         </Text>
       </Pressable>
       <Pressable className='flex justify-center items-center mx-2'>
-        <Image/>
+        <FontAwesome6 name="magnifying-glass" size={24} color="#dc2626" />
         <Text className='color-red-700'>
           Pesquisa
         </Text>
       </Pressable>
       <Pressable className='flex justify-center items-center mx-2'>
-        <Image/>
-        <Text className='color-red-700'>
+        <Entypo name="shop" size={24} color="#f87171" />
+        <Text className='color-red-400'>
           Gerencia
         </Text>
       </Pressable>
