@@ -13,6 +13,15 @@ export default function Home() {
       <MenuButton />
       <Avatar source={{ uri: 'https://github.com/orodrigo.png'}} size='small'/>
     </View>
+    <View 
+      className='mt-5 border-b border-gray-300'
+    >
+      <View className='flex flex-row justify-between items-center mx-5 mb-2'>
+        <Text className='text-sm font-bold color-gray-500'>
+          Serviços em andamento
+        </Text>
+      </View>
+    </View>
    </View>
   );
 }
