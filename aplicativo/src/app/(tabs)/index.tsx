@@ -11,7 +11,6 @@ import { FlatList } from 'react-native-gesture-handler';
 import { CARDS } from '../../utils/cards';
 
 import { CardDataProps } from '../../utils/cards';
-import { filterConfig } from 'react-native-gesture-handler/lib/typescript/handlers/gestureHandlerCommon';
 import React from 'react';
 
 type CardServicProps = {
