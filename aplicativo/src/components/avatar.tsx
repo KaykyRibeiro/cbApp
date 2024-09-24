@@ -1,5 +1,6 @@
 import { Image, ImageProps } from 'react-native';
 import clsx from 'clsx';
+import React from 'react';
 
 type AvatarProps = ImageProps & {
     size?: "small" | "medium" | "large"

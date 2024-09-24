@@ -2,10 +2,11 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Pressable, View, Image, Text } from 'react-native';
 
 import { Avatar } from './avatar';
-import { CardDataProps } from '../utils/cards';
+import { Card } from '../app/(tabs)';
+import React from 'react';
 
 type CardServicProps = {
-  data: CardDataProps
+  data: Card
 }
 
 export function CardServicAtraso({data}: CardServicProps) {
@@ -14,7 +15,7 @@ export function CardServicAtraso({data}: CardServicProps) {
       className='bg-white h-auto rounded-lg my-3 mx-1 px-2 py-1 flex flex-row justify-start shadow-sm shadow-red-500/50 border-b border-red-400 '
     >
       <View className='mr-2 flex justify-center items-center'>
-        <Avatar source={{ uri: data.image }} />
+        <Avatar src={data.image} />
       </View>
       <View className='flex flex-grow justify-start gap-2'>
         <View>

@@ -13,32 +13,12 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Services {
-  id             String           @id @default(cuid())
-  valor          Decimal
-  DataInicio     DateTime
-  DataFinal      DateTime
-  createdAt      DateTime         @default(now())
-  ServicesDetail ServicesDetail[]
-
-  @@map("services")
-}
-
-model ServicesDetail {
-  id              String      @id @default(cuid())
-  id_services     String
-  service         Services    @relation(fields: [id_services], references: [id])
-  id_type_service String
-  typeService     TypeService @relation(fields: [id_type_service], references: [id])
-
-  @@map("services_detail")
-}
-
-model TypeService {
-  id   String @id @default(cuid())
-  name String
-
-  ServicesDetail ServicesDetail[]
-
-  @@map("type_service")
+model Service {
+  id          Int     @id @default(autoincrement())
+  title       String
+  description String
+  date        String
+  end         String
+  image       String
+  andamento   Boolean
 }
