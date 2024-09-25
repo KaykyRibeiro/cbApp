@@ -30,7 +30,7 @@ export default function Home() {
         // Função para buscar os dados da API
         const fetchCards = async () => {
             try {
-                const response = await axios.get('http://192.168.56.1:3000/services'); // Altere a URL para seu backend real
+                const response = await axios.get('http://192.168.56.1:3000/services/get'); // Altere a URL para seu backend real
                 setCards(response.data);
             } catch (error) {
                 console.error('Erro ao buscar os dados', error);
