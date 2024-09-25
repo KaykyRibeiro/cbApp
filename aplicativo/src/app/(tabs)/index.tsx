@@ -8,6 +8,7 @@ import { FlatList } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { FloatBtn } from '../../components/float-btn';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -99,6 +100,8 @@ export default function Home() {
                     />
                 </View>
             )}
+
+            <FloatBtn />
         </View>
     );
 }
