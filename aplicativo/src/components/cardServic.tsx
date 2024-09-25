@@ -3,7 +3,7 @@ import { Pressable, View, Image, Text } from 'react-native';
 
 import { Avatar } from './avatar';
 import React from 'react';
-import { Card } from '../app/(tabs)';
+import { Card } from '../app/(drawer)/(tabs)';
 
 interface CardServicProps {
   data: Card; // Tipando a prop data como o tipo Card
