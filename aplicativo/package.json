@@ -15,6 +15,7 @@
   "dependencies": {
     "@expo-google-fonts/kanit": "^0.2.3",
     "@expo/vector-icons": "^14.0.2",
+    "@react-navigation/drawer": "^6.7.2",
     "@react-navigation/native": "^6.0.2",
     "axios": "^1.7.7",
     "clsx": "^2.1.1",

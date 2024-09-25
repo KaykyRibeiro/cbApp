@@ -8,6 +8,7 @@ import {
     Kanit_700Bold
 } from "@expo-google-fonts/kanit"
 import { Loading } from "../components/loading";
+import React from "react";
 
 export default function RootLayout(){
     const [fontsLoaded] = useFonts({

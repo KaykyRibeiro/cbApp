@@ -1,13 +1,14 @@
 import { View, Text } from 'react-native';
 import Constants from 'expo-constants';
-import { MenuButton } from '../../components/menu-button';
-import { Avatar } from '../../components/avatar';
-import { CardServic } from '../../components/cardServic';
-import { CardServicAtraso } from '../../components/cardServicAtraso';
+import { MenuButton } from '../../../components/menu-button';
+import { Avatar } from '../../../components/avatar';
+import { CardServic } from '../../../components/cardServic';
+import { CardServicAtraso } from '../../../components/cardServicAtraso';
 import { FlatList } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
+import { FloatBtn } from '../../../components/float-btn';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -62,7 +63,7 @@ export default function Home() {
         <View className='flex-1 p-4 bg-white'>
             <View className='w-full h-auto flex-row items-center justify-between' style={{ paddingTop: statusBarHeight + 10 }}>
                 <MenuButton />
-                <Avatar source={require('../../assets/logo-cb.png')} size='medium' />
+                <Avatar source={require('../../../assets/logo-cb.png')} size='medium' />
             </View>
 
             {lateAndInProgressCards.length > 0 ? (
@@ -99,6 +100,8 @@ export default function Home() {
                     />
                 </View>
             )}
+
+            <FloatBtn />
         </View>
     );
 }

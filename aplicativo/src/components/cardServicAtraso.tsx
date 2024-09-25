@@ -2,7 +2,7 @@ import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Pressable, View, Image, Text } from 'react-native';
 
 import { Avatar } from './avatar';
-import { Card } from '../app/(tabs)';
+import { Card } from '../app/(drawer)/(tabs)';
 import React from 'react';
 
 type CardServicProps = {
