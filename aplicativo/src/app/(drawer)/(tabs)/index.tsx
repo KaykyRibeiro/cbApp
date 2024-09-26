@@ -14,14 +14,14 @@ const statusBarHeight = Constants.statusBarHeight;
 
 export interface Card {
     id: string;
-    title: string;
-    description: string;
+    name_car: string;
+    type_service: string;
+    price_service: number;
     date: string;
     end: string;
     image: string;
-    andamento: boolean;
+    in_progress: boolean;
 }
-
 
 export default function Home() {
 
@@ -52,11 +52,11 @@ export default function Home() {
     };
 
     const lateAndInProgressCards = cards.filter(
-        card => isCardLate(card.end) && card.andamento === true
+        card => isCardLate(card.end) && card.in_progress === true
     );
 
     const inProgressAndNotLateCards = cards.filter(
-        card => !isCardLate(card.end) && card.andamento === true
+        card => !isCardLate(card.end) && card.in_progress === true
     );
 
     return (

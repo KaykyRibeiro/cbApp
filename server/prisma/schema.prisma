@@ -13,12 +13,25 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// model Service {
+//   id          Int     @id @default(autoincrement())
+//   title       String
+//   description String
+//   date        String
+//   end         String
+//   image       String
+//   andamento   Boolean
+// }
+
 model Service {
-  id          Int     @id @default(autoincrement())
-  title       String
-  description String
-  date        String
-  end         String
-  image       String
-  andamento   Boolean
+  id            Int     @id @default(autoincrement())
+  name_car      String
+  type_service  String
+  price_service Decimal
+  date          String
+  end           String
+  image         String
+  in_progress   Boolean
+
+  @@map("service")
 }
