@@ -4,9 +4,11 @@ import { TouchableOpacity, View } from "react-native";
 
 export function FloatBtn() {
     return (
-        <View className="rounded-full absolute bottom-10 right-8 border-2 border-blue-500  ">
+        <View className="absolute bottom-10 right-8  ">
             <TouchableOpacity >
-                <MaterialIcons name="add" size={40} color="#3b82f6" />
+                <View className="rounded-full border-2 border-blue-500  ">
+                    <MaterialIcons name="add" size={40} color="#3b82f6" />
+                </View>
             </TouchableOpacity>
         </View>
 
