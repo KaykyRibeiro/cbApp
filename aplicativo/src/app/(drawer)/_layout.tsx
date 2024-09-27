@@ -6,7 +6,7 @@ import { CustomOptions } from '../../types/navigation';
 export default function DrawerLayout() {
     return (
         <Drawer 
-        defaultStatus='open'
+        
         screenOptions={{
             headerShown: false,
             drawerStyle: {
@@ -14,8 +14,25 @@ export default function DrawerLayout() {
             },
         }}
         drawerContent={(props) => <DrawerContent {...props}/>}
-        >
-            <Drawer.Screen name='(tabs)' options={{title: "Configuração", iconName: "settings", isDividir: true} as CustomOptions}/>
+        >   
+            <Drawer.Screen 
+                name='(tabs)' 
+                options={{
+                    title: "Inicio", 
+                    iconName: "home", 
+                    isDividir: true
+                    } as CustomOptions
+                }
+            />
+            <Drawer.Screen 
+                name='config' 
+                options={{
+                    title: "Configuração", 
+                    iconName: "settings", 
+                    isDividir: true
+                    } as CustomOptions
+                }
+            />
         </Drawer>
     );
 }

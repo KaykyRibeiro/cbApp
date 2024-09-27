@@ -15,9 +15,7 @@ export default function DrawerBtn({title, isDividir, isFocused, iconName, ...res
     return (
         <>
             <Pressable className={clsx('py-2 w-full', {
-                "border-b border-blue-300": isDividir,
-            }, {
-                "bg-blue-50": !isFocused,
+                "bg-blue-50": isFocused,
             })}
             {...rest}
             >
@@ -25,28 +23,15 @@ export default function DrawerBtn({title, isDividir, isFocused, iconName, ...res
                     <MaterialIcons
                         name={iconName}
                         size={28}
-                        color={isFocused ? "#4b5563": "#3b82f6" } />
+                        color={isFocused ? "#3b82f6" : "#4b5563" } />
                     <Text className={clsx("text-gray-500 font-subtitle text-base flex-1", {
-                        "text-blue-600": isFocused,
+                        "text-blue-700/80": isFocused,
                     })}>
                         {title}
                     </Text>
                 </View>
             </Pressable>
-            <Pressable className={clsx('py-2 w-full', {
-                "border-b border-red-400 ": isDividir,
-            }, {
-                "bg-red-50": !isFocused,
-            })}>
-                <View className={clsx("flex flex-row items-center gap-4 h-14 px-6 -ml-2",)}>
-                    <MaterialIcons name="exit-to-app" size={30} color="#ef4444" />
-                    <Text className={clsx("text-red-700 font-subtitle text-base flex-1", {
-                        "text-red-800": isFocused,
-                    })}>
-                        Sair
-                    </Text>
-                </View>
-            </Pressable>
+            
         </>
     );
 }

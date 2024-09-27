@@ -1,8 +1,10 @@
 import { DrawerContentComponentProps } from "@react-navigation/drawer";
 import React from "react";
-import { Image, View, Text, ScrollView } from "react-native";
+import { Image, View, Text, ScrollView, Pressable } from "react-native";
 import DrawerBtn from "./drawer-btn";
 import { CustomOptions } from "../types/navigation";
+import clsx from "clsx";
+import { MaterialIcons } from "@expo/vector-icons";
 
 export function DrawerContent(drawerProps: DrawerContentComponentProps) {
     {
@@ -22,19 +24,41 @@ export function DrawerContent(drawerProps: DrawerContentComponentProps) {
                                 if (options.title === undefined) {
                                     return;
                                 }
+
+                                const onPress = () => {
+                                    const event = drawerProps.navigation.emit({
+                                        type: "drawerItemPress",
+                                        canPreventDefault: true,
+                                        target: route.key,
+                                    })
+                                    if (!isFocused && !event.defaultPrevented) {
+                                        drawerProps.navigation.navigate(route.name, route.params);
+                                    }
+                                }
+
+
                                 return (
                                     <View key={route.key}>
                                         <DrawerBtn
+                                            onPress={onPress}
                                             title={options.title}
                                             iconName={options.iconName}
                                             isDividir={options.isDividir || false}
                                             isFocused={isFocused}
-                                            />
+                                        />
                                     </View>
                                 )
                             })
                         }
                     </View>
+                    <Pressable className='py-2 w-full'>
+                        <View className={clsx("flex flex-row items-center gap-4 h-14 px-6 -ml-2",)}>
+                            <MaterialIcons name="exit-to-app" size={30} color="#ef4444" />
+                            <Text className="text-red-700 font-subtitle text-base flex-1">
+                                Sair
+                            </Text>
+                        </View>
+                    </Pressable>
 
                 </ScrollView>
             </View>
