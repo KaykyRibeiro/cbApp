@@ -1,6 +1,7 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
 import { DrawerContent } from '../../components/drawer-content';
+import { CustomOptions } from '../../types/navigation';
 
 export default function DrawerLayout() {
     return (
@@ -14,7 +15,7 @@ export default function DrawerLayout() {
         }}
         drawerContent={(props) => <DrawerContent {...props}/>}
         >
-            <Drawer.Screen name='(tabs)'/>
+            <Drawer.Screen name='(tabs)' options={{title: "Configuração", iconName: "settings", isDividir: true} as CustomOptions}/>
         </Drawer>
     );
 }

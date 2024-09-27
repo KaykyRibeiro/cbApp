@@ -4,15 +4,19 @@ import { Pressable, View, Image, Text } from 'react-native';
 import { Avatar } from './avatar';
 import React from 'react';
 import { Card } from '../app/(drawer)/(tabs)';
+import clsx from 'clsx';
 
 interface CardServicProps {
   data: Card; // Tipando a prop data como o tipo Card
 }
 
 export function CardHistorico({data}: CardServicProps) {
+  const isDividir = true;
   return (
         <Pressable
-          className='bg-white h-auto rounded-lg mb-2 px-2 py-1 flex flex-row justify-start border-b border-blue-300 '
+          className={clsx('bg-white h-auto rounded-lg mb-2 px-2 py-1 flex flex-row justify-start  ', {
+            'border-b border-blue-300' : isDividir,
+          })}
         >
           <View className='mr-2 flex justify-center items-center'>
             <Avatar src={data.image}/>
