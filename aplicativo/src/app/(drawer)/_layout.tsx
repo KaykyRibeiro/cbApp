@@ -1,5 +1,7 @@
 import React from 'react';
 import { Drawer } from 'expo-router/drawer';
+import { DrawerContent } from '../../components/drawer-content';
+
 export default function DrawerLayout() {
     return (
         <Drawer 
@@ -10,6 +12,7 @@ export default function DrawerLayout() {
                 width: "75%",
             },
         }}
+        drawerContent={(props) => <DrawerContent {...props}/>}
         >
             <Drawer.Screen name='(tabs)'/>
         </Drawer>
