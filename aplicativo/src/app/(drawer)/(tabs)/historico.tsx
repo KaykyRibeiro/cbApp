@@ -35,7 +35,7 @@ export default function Historico() {
       <Text className='color-gray-700 font-semibold text-sm mt-4'>
         Histórico de serviços
       </Text>
-      <ScrollView className='shadow-md w-full h-full bg-blue-50/30 rounded-md p-1'>
+      <View className='shadow-md w-full h-full bg-blue-50/30 rounded-md p-1'>
         {noProgressCard.length > 0 && (
           <View>
             <FlatList
@@ -45,7 +45,7 @@ export default function Historico() {
             />
           </View>
         )}
-      </ScrollView>
+      </View>
     </View>
   );
 }

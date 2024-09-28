@@ -1,7 +1,12 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
 import { Services } from './services.service'
 import { PrismaService } from '../database/prisma.service';
 import { Prisma } from '@prisma/client';
+import { UpdateServiceDTO } from 'src/dto/update-service.dto';
+
+export interface PostModel {
+    type_service: string
+}
 
 @Controller('services')
 export class ServicesController {
@@ -15,5 +20,10 @@ export class ServicesController {
     @Post('post')
     async create(@Body() service: Prisma.ServiceCreateInput) {
         return this.services.create(service)
+    }
+
+    @Put('update/:id')
+    async update(@Param('id') id: string, @Body() updateServiceDTO: UpdateServiceDTO) {
+        return await this.services.update(+id, updateServiceDTO);
     }
 }
