@@ -53,8 +53,8 @@ export function DrawerContent(drawerProps: DrawerContentComponentProps) {
                     </View>
                     <Pressable className='py-2 w-full'>
                         <View className={clsx("flex flex-row items-center gap-4 h-14 px-6 -ml-2",)}>
-                            <MaterialIcons name="exit-to-app" size={30} color="#ef4444" />
-                            <Text className="text-red-700 font-subtitle text-base flex-1">
+                            <MaterialIcons name="exit-to-app" size={25} color="#ef4444" />
+                            <Text className="text-red-600 font-subtitle text-base flex-1">
                                 Sair
                             </Text>
                         </View>

@@ -22,7 +22,7 @@ export default function DrawerBtn({title, isDividir, isFocused, iconName, ...res
                 <View className={clsx("flex flex-row items-center gap-4 h-14 px-6 -ml-2",)}>
                     <MaterialIcons
                         name={iconName}
-                        size={28}
+                        size={25}
                         color={isFocused ? "#3b82f6" : "#4b5563" } />
                     <Text className={clsx("text-gray-500 font-subtitle text-base flex-1", {
                         "text-blue-700/80": isFocused,

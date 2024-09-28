@@ -1,4 +1,3 @@
-import { AntDesign, MaterialIcons } from '@expo/vector-icons';
 import { Pressable, View, Image, Text } from 'react-native';
 
 import { Avatar } from './avatar';
