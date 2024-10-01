@@ -9,6 +9,14 @@ import moment from 'moment';
 const statusBarHeight = Constants.statusBarHeight;
 
 export default function Form() {
+
+  const [valor, setValor] = useState('');
+  const [prazo, setPrazo] = useState('');
+  const [dataInicio, setDataInicio] = useState('');
+  const [dataTermino, setDataTermino] = useState('');
+  // Estado para armazenar os itens selecionados
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
   // Estado para armazenar os valores dos campos de texto da Etapa 2
   const [formData, setFormData] = useState({
     clienteNome: '',
@@ -18,11 +26,11 @@ export default function Form() {
     veiculoCor: '',
     tipoServico: '',
     precoServico: '',
-    descricao: '',
-    date: '',
+    descricao: " ",
+    date: moment(new Date()).format('DD/MM/YYYY'),
     end: '',
-    image: '',
-    in_progress: ''
+    image: 'https://i.imgur.com/EdIV8pO.jpeg',
+    in_progress: true
   });
 
   const handleSubmit = async (e: any) => {
@@ -42,9 +50,6 @@ export default function Form() {
 
   // Hook para navegar entre telas
   const router = useRouter();
-
-  // Estado para armazenar os itens selecionados
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   // Estado para controlar os passos
   const [step, setStep] = useState(1);
@@ -72,11 +77,17 @@ export default function Form() {
 
   // Função para lidar com seleção de itens (checkboxes)
   const handleCheckBoxPress = (value: string) => {
+
     if (selectedItems.includes(value)) {
       setSelectedItems(selectedItems.filter(item => item !== value));
     } else {
       setSelectedItems([...selectedItems, value]);
     }
+
+    const allItems = selectedItems.join(', '); // Resultado: 'item1, item2, item3'
+
+    handleInputChange('tipoServico', allItems);
+
   };
 
   // Função para avançar para o próximo passo
@@ -108,15 +119,12 @@ export default function Form() {
 
   // Função para atualizar o estado com os dados do formulário
   const handleInputChange = (name: string, value: string) => {
+
     setFormData({
       ...formData,
       [name]: value
     });
   };
-
-  const [prazo, setPrazo] = useState('');
-  const [dataInicio, setDataInicio] = useState('');
-  const [dataTermino, setDataTermino] = useState('');
 
   // Função para verificar se é fim de semana e ajustar a data para o próximo dia útil
   const ajustarParaProximoDiaUtil = (data: Date) => {
@@ -135,7 +143,7 @@ export default function Form() {
   const calcularDatas = () => {
     const prazoEmNumero = parseInt(prazo, 10);
 
-    if (!isNaN(prazoEmNumero)) {
+    if (!isNaN(prazoEmNumero)) {      
       const hoje = new Date();
       let dataCalculada = new Date(hoje);
 
@@ -154,11 +162,11 @@ export default function Form() {
 
       setDataInicio(moment(hoje).format('DD/MM/YYYY')); // Data atual como início
       setDataTermino(moment(dataAjustada).format('DD/MM/YYYY')); // Data ajustada como término
+
+      handleInputChange('end', moment(dataAjustada).format('DD/MM/YYYY'))
+
     }
   };
-
-
-  const [valor, setValor] = useState('');
 
   // Função para formatar o valor como moeda brasileira
   const formatarValor = (valor: string) => {
@@ -171,7 +179,14 @@ export default function Form() {
       currency: 'BRL',
     }).format(parseFloat(valorNumerico) / 100); // Dividido por 100 para considerar casas decimais
 
+    let valorFinal = parseFloat(valorNumerico) / 100
+
+    let valorFinalFormatado = valorFinal.toString()
+
+    handleInputChange('precoServico', valorFinalFormatado)
+
     return valorFormatado;
+
   };
 
   // Função para atualizar o valor no estado e formatá-lo
@@ -200,7 +215,6 @@ export default function Form() {
             <View className='w-full h-auto flex flex-col mt-3'>
               {/* Checkbox 1 */}
               <TouchableOpacity
-
                 onPress={() => handleCheckBoxPress('higienizacao')}
                 style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}
               >

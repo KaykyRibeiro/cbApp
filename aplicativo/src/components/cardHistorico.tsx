@@ -21,8 +21,8 @@ export function CardHistorico({data}: CardServicProps) {
           </View>
           <View className='flex flex-grow justify-start gap-2'>
             <View>
-              <Text className='text-xl font-semibold'>{data.name_car}</Text>
-              <Text className='text-sm color-slate-500' numberOfLines={1} lineBreakMode='tail'>{data.type_service}</Text>
+              <Text className='text-xl font-semibold'>{data.veiculoModelo} {data.veiculoCor} {data.veiculoAno}</Text>
+              <Text className='text-sm color-slate-500' numberOfLines={1} lineBreakMode='tail'>{data.tipoServico}</Text>
             </View>
             <View className='flex flex-row justify-end items-center'>
               <Text className='mx-2'>Finalizado em {data.end}</Text>

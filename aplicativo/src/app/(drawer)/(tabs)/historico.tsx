@@ -26,7 +26,7 @@ export default function Historico() {
   }, []);
 
   const noProgressCard = cards.filter(
-    card => card.in_progress === false
+    card => card.in_progress === false || card.in_progress === true
   );
 
   return (
