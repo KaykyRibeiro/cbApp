@@ -4,6 +4,7 @@ import { Avatar } from '../components/avatar';
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
+import moment from 'moment';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -111,6 +112,71 @@ export default function Form() {
       ...formData,
       [name]: value
     });
+  };
+
+  const [prazo, setPrazo] = useState('');
+  const [dataInicio, setDataInicio] = useState('');
+  const [dataTermino, setDataTermino] = useState('');
+
+  // Função para verificar se é fim de semana e ajustar a data para o próximo dia útil
+  const ajustarParaProximoDiaUtil = (data: Date) => {
+    let diaDaSemana = data.getDay(); // 0 = domingo, 6 = sábado
+    if (diaDaSemana === 6) {
+      // Se for sábado, adicionar 2 dias para chegar na segunda
+      data.setDate(data.getDate() + 2);
+    } else if (diaDaSemana === 0) {
+      // Se for domingo, adicionar 1 dia para chegar na segunda
+      data.setDate(data.getDate() + 1);
+    }
+    return data;
+  };
+
+  // Função para calcular a data de início e término do prazo
+  const calcularDatas = () => {
+    const prazoEmNumero = parseInt(prazo, 10);
+
+    if (!isNaN(prazoEmNumero)) {
+      const hoje = new Date();
+      let dataCalculada = new Date(hoje);
+
+      let diasUteisContados = 0;
+      while (diasUteisContados < prazoEmNumero) {
+        dataCalculada.setDate(dataCalculada.getDate() + 1);
+
+        // Ignora finais de semana
+        if (dataCalculada.getDay() !== 0 && dataCalculada.getDay() !== 6) {
+          diasUteisContados++;
+        }
+      }
+
+      // Ajustar o início e o término para dias úteis
+      const dataAjustada = ajustarParaProximoDiaUtil(dataCalculada);
+
+      setDataInicio(moment(hoje).format('DD/MM/YYYY')); // Data atual como início
+      setDataTermino(moment(dataAjustada).format('DD/MM/YYYY')); // Data ajustada como término
+    }
+  };
+
+
+  const [valor, setValor] = useState('');
+
+  // Função para formatar o valor como moeda brasileira
+  const formatarValor = (valor: string) => {
+    // Remove tudo que não é número
+    let valorNumerico = valor.replace(/\D/g, '');
+
+    // Formatar o valor em reais usando Intl
+    let valorFormatado = new Intl.NumberFormat('pt-BR', {
+      style: 'currency',
+      currency: 'BRL',
+    }).format(parseFloat(valorNumerico) / 100); // Dividido por 100 para considerar casas decimais
+
+    return valorFormatado;
+  };
+
+  // Função para atualizar o valor no estado e formatá-lo
+  const handleValorChange = (valor: string) => {
+    setValor(formatarValor(valor));
   };
 
   return (
@@ -302,65 +368,69 @@ export default function Form() {
           <View className='w-96 h-outo shadow-sm bg-white rounded-lg p-4 mt-2'>
             <Text className='text-lg'>Insira as informações do(s) serviço(s):</Text>
             <View className='w-full h-auto flex flex-col mt-3'>
-              {/* Exibir input específico para 'higienizacao' */}
-              {selectedItems.includes('higienizacao') && (
-                <TextInput
-                  placeholder='Detalhes sobre a Higienização Interna:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
-                />
-              )}
-
-              {/* Exibir input específico para 'limpeza' */}
-              {selectedItems.includes('limpeza') && (
-                <TextInput
-                  placeholder='Detalhes sobre a Limpeza Interna:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
-                />
-              )}
 
               {/* Exibir input específico para 'pinturaCompleta' */}
               {selectedItems.includes('pinturaCompleta') && (
-                <TextInput
-                  placeholder='Detalhes sobre a Pintura Completa:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
-                />
+                <View>
+                  <Text className='text-lg'>Informações sobre a Pintura Completa:</Text>
+                  <TextInput
+                    placeholder='Detalhes sobre a Pintura Completa:'
+                    className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                    value={formData.descricao}
+                    onChangeText={(value) => handleInputChange('descricao', value)}
+                  />
+                </View>
+
               )}
 
               {/* Exibir input específico para 'pinturaEspecifica' */}
               {selectedItems.includes('pinturaEspecifica') && (
-                <TextInput
-                  placeholder='Detalhes sobre a Pintura Específica:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
-                />
+                <View className='my-3'>
+                  <Text className='text-sm color-blue-900 font-semibold'>Informações sobre a Pintura Especifica:</Text>
+                  <TextInput
+                    placeholder='Detalhes sobre a Pintura Específica:'
+                    className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                    value={formData.descricao}
+                    onChangeText={(value) => handleInputChange('descricao', value)}
+                  />
+                </View>
+
               )}
 
-              {/* Exibir input específico para 'polimentoComercial' */}
-              {selectedItems.includes('polimentoComercial') && (
-                <TextInput
-                  placeholder='Detalhes sobre o Polimento Comercial:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
-                />
-              )}
 
-              {/* Exibir input específico para 'polimentoTecnico' */}
-              {selectedItems.includes('polimentoTecnico') && (
+              <View className='flex flex-row justify-between mt-5'>
                 <TextInput
-                  placeholder='Detalhes sobre o Polimento Técnico:'
-                  className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                  value={formData.descricao}
-                  onChangeText={(value) => handleInputChange('descricao', value)}
+                  placeholder='Prazo (dias úteis):'
+                  value={prazo}
+                  onChangeText={setPrazo}
+                  onBlur={calcularDatas} // Chama a função quando o usuário para de digitar
+                  keyboardType='numeric'
+                  className='w-36 h-12 mb-2 bg-transparent border-b border-gray-300'
                 />
-              )}
+                <View className='mr-4'>
+                  <TextInput
+                    placeholder='Início'
+                    value={dataInicio} // Preenche com a data de início calculada
+                    editable={false} // Impedir que o usuário edite diretamente
+                    className='w-28 h-12 mb-2 bg-transparent border-b border-blue-300 color-blue-950'
+                  />
+                  <TextInput
+                    placeholder='Término'
+                    value={dataTermino} // Preenche com a data de término calculada
+                    editable={false} // Impedir que o usuário edite diretamente
+                    className='w-28 h-12 mb-2 bg-transparent border-b border-blue-300 color-blue-950'
+                  />
+                </View>
+              </View>
+              <View className='mt-8 pt-3 border-t border-red-200'>
+                <TextInput
+                  placeholder="Valor do serviço:"
+                  value={valor}
+                  onChangeText={handleValorChange}
+                  keyboardType="numeric" // Permite apenas números
+                  className="w-full h-12 mb-2 bg-transparent border-b border-blue-300"
+                />
+              </View>
 
             </View>
           </View>
