@@ -25,9 +25,14 @@ datasource db {
 
 model Service {
   id            Int     @id @default(autoincrement())
-  name_car      String
-  type_service  String
-  price_service Decimal
+  clienteNome   String
+  telefone      String
+  veiculoModelo String
+  veiculoAno    String
+  veiculoCor    String
+  tipoServico   String
+  precoServico  Decimal
+  descricao     String
   date          String
   end           String
   image         String

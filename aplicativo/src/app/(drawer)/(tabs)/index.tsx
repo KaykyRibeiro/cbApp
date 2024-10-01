@@ -14,13 +14,18 @@ const statusBarHeight = Constants.statusBarHeight;
 
 export interface Card {
     id: string;
-    name_car: string;
-    type_service: string;
-    price_service: number;
+    clienteNome: string;
+    telefone: string;
+    veiculoModelo: string;
+    veiculoAno: string;
+    veiculoCor: string;
+    tipoServico: string;
+    precoServico: number;
+    descricao: string;
     date: string;
     end: string;
     image: string;
-    in_progress: boolean;
+    in_progress: Boolean;
 }
 
 export default function Home() {
@@ -42,7 +47,7 @@ export default function Home() {
     }, []);
 
     // Função para verificar se o card está atrasado
-    const isCardLate = (endDate:any) => {
+    const isCardLate = (endDate: any) => {
         const [day, month, year] = endDate.split('/').map(Number);
         const cardEndDate = new Date(year, month - 1, day); // Mês é 0 indexado no JS
         const today = new Date();

@@ -1,16 +1,54 @@
 import React, { useState } from 'react';
-import { useRouter } from 'expo-router';
 import { View, Text, Pressable, TouchableOpacity, Alert, TextInput } from 'react-native';
 import { Avatar } from '../components/avatar';
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
+import { useRouter } from 'expo-router';
 
 const statusBarHeight = Constants.statusBarHeight;
 
 export default function Form() {
+  // Estado para armazenar os valores dos campos de texto da Etapa 2
+  const [formData, setFormData] = useState({
+    clienteNome: '',
+    telefone: '',
+    veiculoModelo: '',
+    veiculoAno: '',
+    veiculoCor: '',
+    tipoServico: '',
+    precoServico: '',
+    descricao: '',
+    date: '',
+    end: '',
+    image: '',
+    in_progress: ''
+  });
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+
+    const response = await fetch('http://192.168.56.1:3000/services/post', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(formData),
+    });
+
+    const result = await response.json();
+    console.log(result);
+  };
+
+  // Hook para navegar entre telas
   const router = useRouter();
 
-  // Função para navegar para outra tela
+  // Estado para armazenar os itens selecionados
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
+
+  // Estado para controlar os passos
+  const [step, setStep] = useState(1);
+
+  // Função para navegar entre telas
   const handlePress = () => {
     Alert.alert(
       'Descartar Cadastro',
@@ -23,7 +61,7 @@ export default function Form() {
         {
           text: 'Sim',
           onPress: () => {
-            router.push('/(drawer)/(tabs)');
+            router.push("/(drawer)/(tabs)"); // Corrigido para React Navigation
           },
         },
       ],
@@ -31,8 +69,7 @@ export default function Form() {
     );
   };
 
-  const [selectedItems, setSelectedItems] = useState<string[]>([]);
-
+  // Função para lidar com seleção de itens (checkboxes)
   const handleCheckBoxPress = (value: string) => {
     if (selectedItems.includes(value)) {
       setSelectedItems(selectedItems.filter(item => item !== value));
@@ -41,17 +78,7 @@ export default function Form() {
     }
   };
 
-  const [step, setStep] = useState(1);
-
-  // Estado para armazenar os valores dos campos de texto da Etapa 2
-  const [formData, setFormData] = useState({
-    clienteNome: '',
-    telefone: '',
-    veiculoModelo: '',
-    veiculoAno: '',
-    veiculoCor: ''
-  });
-
+  // Função para avançar para o próximo passo
   const nextStep = () => {
     if (step === 1) {
       if (selectedItems.length === 0) {
@@ -71,14 +98,19 @@ export default function Form() {
     }
   };
 
+  // Função para voltar ao passo anterior
   const prevStep = () => {
     if (step > 1) {
       setStep(step - 1);
     }
   };
 
-  const handleInputChange = (field: string, value: string) => {
-    setFormData({ ...formData, [field]: value });
+  // Função para atualizar o estado com os dados do formulário
+  const handleInputChange = (name: string, value: string) => {
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
 
   return (
@@ -102,6 +134,7 @@ export default function Form() {
             <View className='w-full h-auto flex flex-col mt-3'>
               {/* Checkbox 1 */}
               <TouchableOpacity
+
                 onPress={() => handleCheckBoxPress('higienizacao')}
                 style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 10 }}
               >
@@ -215,30 +248,35 @@ export default function Form() {
               <TextInput
                 placeholder='Nome do cliente:'
                 className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                onChangeText={(text) => handleInputChange('clienteNome', text)}
+                value={formData.clienteNome}
+                onChangeText={(value) => handleInputChange('clienteNome', value)}
               />
               <TextInput
                 placeholder='Telefone:'
                 className='w-full h-12 bg-transparent border-b border-gray-300'
-                onChangeText={(text) => handleInputChange('telefone', text)}
+                value={formData.telefone}
+                onChangeText={(value) => handleInputChange('telefone', value)}
               />
 
               <Text className='text-lg mt-8'>Informe os dados do veículo:</Text>
               <TextInput
                 placeholder='Modelo:'
                 className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                onChangeText={(text) => handleInputChange('veiculoModelo', text)}
+                value={formData.veiculoModelo}
+                onChangeText={(value) => handleInputChange('veiculoModelo', value)}
               />
               <View className='flex flex-row justify-between mb-2'>
                 <TextInput
                   placeholder='Ano:'
                   className='w-40 h-12 bg-transparent border-b border-gray-300'
-                  onChangeText={(text) => handleInputChange('veiculoAno', text)}
+                  value={formData.veiculoAno}
+                  onChangeText={(value) => handleInputChange('veiculoAno', value)}
                 />
                 <TextInput
                   placeholder='Cor:'
                   className='w-40 h-12 bg-transparent border-b border-gray-300'
-                  onChangeText={(text) => handleInputChange('veiculoCor', text)}
+                  value={formData.veiculoCor}
+                  onChangeText={(value) => handleInputChange('veiculoCor', value)}
                 />
               </View>
             </View>
@@ -269,6 +307,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre a Higienização Interna:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -277,6 +317,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre a Limpeza Interna:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -285,6 +327,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre a Pintura Completa:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -293,6 +337,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre a Pintura Específica:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -301,6 +347,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre o Polimento Comercial:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -309,6 +357,8 @@ export default function Form() {
                 <TextInput
                   placeholder='Detalhes sobre o Polimento Técnico:'
                   className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
+                  value={formData.descricao}
+                  onChangeText={(value) => handleInputChange('descricao', value)}
                 />
               )}
 
@@ -319,7 +369,7 @@ export default function Form() {
             <TouchableOpacity onPress={prevStep}>
               <Text className='text-md font-semibold color-gray-600 border border-gray-500 rounded-lg px-3 py-2'>Voltar</Text>
             </TouchableOpacity>
-            <TouchableOpacity onPress={nextStep}>
+            <TouchableOpacity onPress={handleSubmit}>
               <Text className='text-md font-semibold color-blue-900 border border-blue-800 rounded-lg px-3 py-2'>Cadastrar</Text>
             </TouchableOpacity>
           </View>
