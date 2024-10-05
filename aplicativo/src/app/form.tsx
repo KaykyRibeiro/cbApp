@@ -108,6 +108,7 @@ export default function Form() {
     if (step < 3) {
       setStep(step + 1);
     }
+    console.log(selectedItems);
   };
 
   // Função para voltar ao passo anterior
@@ -143,7 +144,7 @@ export default function Form() {
   const calcularDatas = () => {
     const prazoEmNumero = parseInt(prazo, 10);
 
-    if (!isNaN(prazoEmNumero)) {      
+    if (!isNaN(prazoEmNumero)) {
       const hoje = new Date();
       let dataCalculada = new Date(hoje);
 
@@ -385,14 +386,19 @@ export default function Form() {
 
               {/* Exibir input específico para 'pinturaCompleta' */}
               {selectedItems.includes('pinturaCompleta') && (
-                <View>
-                  <Text className='text-lg'>Informações sobre a Pintura Completa:</Text>
-                  <TextInput
-                    placeholder='Detalhes sobre a Pintura Completa:'
-                    className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                    value={formData.descricao}
-                    onChangeText={(value) => handleInputChange('descricao', value)}
-                  />
+                <View className='my-3'>
+                  <Text className='text-sm color-blue-900 font-semibold'>Informações sobre a Pintura Completa:</Text>
+                  <View className='flex flex-row justify-between'>
+                    <TextInput
+                      placeholder='Cor da Pintura:'
+                      className='w-32 h-auto mt-2 bg-transparent border-b border-gray-300'
+                    />
+                    <TextInput
+                      placeholder='Código da cor:'
+                      className='w-32 h-auto mt-2 bg-transparent border-b border-gray-300'
+                    />
+                  </View>
+
                 </View>
 
               )}
@@ -411,8 +417,8 @@ export default function Form() {
 
               )}
 
-
-              <View className='flex flex-row justify-between mt-5'>
+              <Text className='text-sm color-blue-950 font-semibold mt-5 pt-2 border-t border-red-200'>Informações complementares:</Text>
+              <View className='flex flex-row justify-between'>
                 <TextInput
                   placeholder='Prazo (dias úteis):'
                   value={prazo}
