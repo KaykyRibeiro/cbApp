@@ -17,6 +17,15 @@ export default function Form() {
   // Estado para armazenar os itens selecionados
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
+  const [selectedOptionPorta, setSelectedOptionPorta] = useState<string | null>(null);
+  const optionsPorta = ['Sim', 'Não']; // Suas opções de Radio Button
+
+  const [selectedOptionRoda, setSelectedOptionRoda] = useState<string | null>(null);
+  const optionsRoda = ['Sim', 'Não']; // Suas opções de Radio Button
+
+  const [selectedOptionCor, setSelectedOptionCor] = useState<string | null>(null);
+  const optionsCor = ['Sim', 'Não']; // Suas opções de Radio Button
+
   // Estado para armazenar os valores dos campos de texto da Etapa 2
   const [formData, setFormData] = useState({
     clienteNome: '',
@@ -388,17 +397,97 @@ export default function Form() {
               {selectedItems.includes('pinturaCompleta') && (
                 <View className='my-3'>
                   <Text className='text-sm color-blue-900 font-semibold'>Informações sobre a Pintura Completa:</Text>
-                  <View className='flex flex-row justify-between'>
-                    <TextInput
-                      placeholder='Cor da Pintura:'
-                      className='w-32 h-auto mt-2 bg-transparent border-b border-gray-300'
-                    />
-                    <TextInput
-                      placeholder='Código da cor:'
-                      className='w-32 h-auto mt-2 bg-transparent border-b border-gray-300'
-                    />
-                  </View>
 
+                  <View className='flex flex-col gap-2 mt-2'>
+                    <View className='flex flex-col items-center mt-3'>
+                      <Text className='text-md color-slate-800'>Vão de porta:</Text>
+                      <View className='flex flex-row items-center gap-5 mt-2'>
+                        {optionsPorta.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            className='flex flex-row items-start  mb-2 '
+                            onPress={() => setSelectedOptionPorta(option)}
+                          >
+                            {/* O círculo do radio button */}
+                            <View
+                              className='h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-2'
+                            >
+                              {selectedOptionPorta === option ? (
+                                <View
+                                  className='h-3 w-3 rounded-full  bg-blue-500 '
+                                />
+                              ) : null}
+                            </View>
+
+                            {/* O texto do radio button */}
+                            <Text className='text-base color-slate-700'>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                    <View className='flex flex-col items-center mt-3'>
+                      <Text className='text-md color-slate-800'>Pintura de roda:</Text>
+                      <View className='flex flex-row items-center gap-5 mt-2'>
+                        {optionsRoda.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            className='flex flex-row items-start  mb-2 '
+                            onPress={() => setSelectedOptionRoda(option)}
+                          >
+                            {/* O círculo do radio button */}
+                            <View
+                              className='h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-2'
+                            >
+                              {selectedOptionRoda === option ? (
+                                <View
+                                  className='h-3 w-3 rounded-full  bg-blue-500 '
+                                />
+                              ) : null}
+                            </View>
+
+                            {/* O texto do radio button */}
+                            <Text className='text-base color-slate-700'>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                    <View className=' w-auto flex flex-row items-center justify-center gap-10'>
+                      <View className='flex flex-col items-center mt-3'>
+                        <Text className='text-md color-slate-800'>Mudança de cor:</Text>
+                        <View className='flex flex-row items-center gap-5 mt-2'>
+                          {optionsCor.map((option, index) => (
+                            <TouchableOpacity
+                              key={index}
+                              className='flex flex-row items-start  mb-2 '
+                              onPress={() => setSelectedOptionCor(option)}
+                            >
+                              {/* O círculo do radio button */}
+                              <View
+                                className='h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-2'
+                              >
+                                {selectedOptionCor === option ? (
+                                  <View
+                                    className='h-3 w-3 rounded-full  bg-blue-500 '
+                                  />
+                                ) : null}
+                              </View>
+
+                              {/* O texto do radio button */}
+                              <Text className='text-base color-slate-700'>{option}</Text>
+                            </TouchableOpacity>
+                          ))}
+                        </View>
+                      </View>
+                      {selectedOptionCor === 'Sim' && (
+                        <View>
+                          <TextInput
+                            placeholder='Informe a cor:'
+                            className='w-full h-12 mb-2 bg-transparent border-b border-blue-400'
+                          />
+                        </View>
+                      )}
+                    </View>
+                  </View>
                 </View>
 
               )}
