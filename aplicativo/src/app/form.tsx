@@ -26,6 +26,18 @@ export default function Form() {
   const [selectedOptionCor, setSelectedOptionCor] = useState<string | null>(null);
   const optionsCor = ['Sim', 'Não']; // Suas opções de Radio Button
 
+  const validColor = () => {
+    if (optionsPorta) {
+      handleInputChange('descricao', ' Vão de porta')
+    }  
+    if (optionsRoda) {
+      handleInputChange('descricao', ' Pintura de roda')
+    }
+    if (optionsCor) {
+      handleInputChange('descricao', ' Mudança de cor')
+    }
+  }
+
   // Estado para armazenar os valores dos campos de texto da Etapa 2
   const [formData, setFormData] = useState({
     clienteNome: '',
@@ -45,7 +57,7 @@ export default function Form() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const response = await fetch('http://192.168.56.1:3000/services/post', {
+    const response = await fetch('http://192.168.1.3:3000/services/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -92,11 +104,6 @@ export default function Form() {
     } else {
       setSelectedItems([...selectedItems, value]);
     }
-
-    const allItems = selectedItems.join(', '); // Resultado: 'item1, item2, item3'
-
-    handleInputChange('tipoServico', allItems);
-
   };
 
   // Função para avançar para o próximo passo
@@ -117,7 +124,11 @@ export default function Form() {
     if (step < 3) {
       setStep(step + 1);
     }
-    console.log(selectedItems);
+
+    const allItems = selectedItems.join(', ');
+    handleInputChange('tipoServico', allItems);
+    console.log(allItems);
+
   };
 
   // Função para voltar ao passo anterior
