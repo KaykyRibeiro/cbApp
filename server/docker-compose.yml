@@ -1,0 +1,23 @@
+version: '3.8'
+services:
+  database:
+    image: postgres:15
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    ports:
+      - "5432:5432"
+
+  nest-app:
+    build: .
+    ports:
+      - "3000:3000"
+    depends_on:
+      - database
+    environment:
+      DATABASE_URL: "postgresql://myuser:mypassword@database:5432/mydatabase"
+    volumes:
+      - .:/usr/src/app
+      - /usr/src/app/node_modules
