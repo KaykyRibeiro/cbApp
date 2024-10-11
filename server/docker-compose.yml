@@ -1,12 +1,12 @@
 version: '3.8'
 services:
   database:
-    image: postgres:15
+    image: postgres:latest
     restart: always
     environment:
-      POSTGRES_USER: myuser
-      POSTGRES_PASSWORD: mypassword
-      POSTGRES_DB: mydatabase
+      POSTGRES_USER: cbapp
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: cbapp_db
     ports:
       - "5432:5432"
 
@@ -14,10 +14,5 @@ services:
     build: .
     ports:
       - "3000:3000"
-    depends_on:
-      - database
     environment:
-      DATABASE_URL: "postgresql://myuser:mypassword@database:5432/mydatabase"
-    volumes:
-      - .:/usr/src/app
-      - /usr/src/app/node_modules
+      DATABASE_URL: "postgresql://cbapp:admin@192.168.1.3:5432/cbapp_db"
