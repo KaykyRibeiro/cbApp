@@ -38,4 +38,10 @@ export class Services {
 
     return
   }
+
+  async delete(id: number) {
+    const service = this.findOne(id)
+
+    await this.prisma.service.delete({ where: { id } })
+  }
 }
