@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Prisma } from '@prisma/client';
-import { error } from 'console';
-import { NotFoundError } from 'rxjs';
 import { UpdateServiceDTO } from 'src/dto/update-service.dto';
 
 @Injectable()

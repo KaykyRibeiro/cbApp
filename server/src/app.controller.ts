@@ -9,7 +9,7 @@ export class AppController {
 
   @Get()
   getHello() {
-    return 'Hello World!';
+    return String(process.env.NODE_ENV);
   }
 }
 
