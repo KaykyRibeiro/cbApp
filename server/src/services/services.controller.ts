@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Param, Post, Put } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Post, Put } from '@nestjs/common';
 import { Services } from './services.service'
 import { PrismaService } from '../database/prisma.service';
 import { Prisma } from '@prisma/client';
@@ -25,5 +25,10 @@ export class ServicesController {
     @Put('update/:id')
     async update(@Param('id') id: string, @Body() updateServiceDTO: UpdateServiceDTO) {
         return await this.services.update(+id, updateServiceDTO);
+    }
+
+    @Delete('delete/:id')
+    async delete(@Param('id') id: string){
+        return this.services.delete(+id)
     }
 }

@@ -1,8 +1,6 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../database/prisma.service';
 import { Prisma } from '@prisma/client';
-import { error } from 'console';
-import { NotFoundError } from 'rxjs';
 import { UpdateServiceDTO } from 'src/dto/update-service.dto';
 
 @Injectable()
@@ -39,5 +37,11 @@ export class Services {
     })
 
     return
+  }
+
+  async delete(id: number) {
+    const service = this.findOne(id)
+
+    await this.prisma.service.delete({ where: { id } })
   }
 }

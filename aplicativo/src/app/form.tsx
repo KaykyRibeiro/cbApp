@@ -59,7 +59,7 @@ export default function Form() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const response = await fetch('http://192.168.1.3:3000/services/post', {
+    const response = await fetch('https://cbappservice-99860148466.us-central1.run.app/services/post', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
