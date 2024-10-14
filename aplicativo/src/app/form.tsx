@@ -664,18 +664,73 @@ export default function Form() {
                       </View>
 
                       {/* Checkbox porta-malas */}
-                      <View className={`border w-16 h-14 items-center ${selectedItemsCar.includes('portaMalas') ? 'border-blue-500' : 'border-transparent'}`}>
+                      <View className={`border w-16 h-8 items-center ${selectedItemsCar.includes('portaMalas') ? 'border-blue-500' : 'border-transparent'}`}>
                         <TouchableOpacity
                           onPress={() => handleCheckBoxPressCar('portaMalas')}
                         >
 
-                          <Image source={require('../assets/porta-malas.png')} className='w- h-auto' />
+                          <Image source={require('../assets/porta-malas.png')} className='w-16 h-8' />
 
                         </TouchableOpacity>
                       </View>
                       
                     </View>
                   </View>
+                  <View className='flex flex-row justify-center gap-16 mt-2'>
+                    <View className='flex flex-col items-center mt-3'>
+                      <Text className='text-md color-slate-800'>Vão de porta:</Text>
+                      <View className='flex flex-row items-center gap-5 mt-2'>
+                        {optionsPorta.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            className='flex flex-row items-start  mb-2 '
+                            onPress={() => setSelectedOptionPorta(option)}
+                          >
+                            {/* O círculo do radio button */}
+                            <View
+                              className='h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-2'
+                            >
+                              {selectedOptionPorta === option ? (
+                                <View
+                                  className='h-3 w-3 rounded-full  bg-blue-500 '
+                                />
+                              ) : null}
+                            </View>
+
+                            {/* O texto do radio button */}
+                            <Text className='text-base color-slate-700'>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                    <View className='flex flex-col items-center mt-3'>
+                      <Text className='text-md color-slate-800'>Pintura de roda:</Text>
+                      <View className='flex flex-row items-center gap-5 mt-2'>
+                        {optionsRoda.map((option, index) => (
+                          <TouchableOpacity
+                            key={index}
+                            className='flex flex-row items-start  mb-2 '
+                            onPress={() => setSelectedOptionRoda(option)}
+                          >
+                            {/* O círculo do radio button */}
+                            <View
+                              className='h-5 w-5 rounded-full border border-gray-300 flex items-center justify-center mr-2'
+                            >
+                              {selectedOptionRoda === option ? (
+                                <View
+                                  className='h-3 w-3 rounded-full  bg-blue-500 '
+                                />
+                              ) : null}
+                            </View>
+
+                            {/* O texto do radio button */}
+                            <Text className='text-base color-slate-700'>{option}</Text>
+                          </TouchableOpacity>
+                        ))}
+                      </View>
+                    </View>
+                  </View>
+
                 </View>
 
               )}
