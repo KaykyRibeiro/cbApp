@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
-import { View, Text, Pressable, TouchableOpacity, Alert, TextInput } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { View, Text, Pressable, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
 import { Avatar } from '../components/avatar';
 import { MaterialIcons } from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import { useRouter } from 'expo-router';
 import moment from 'moment';
+import clsx from 'clsx';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -16,6 +17,7 @@ export default function Form() {
   const [dataTermino, setDataTermino] = useState('');
   // Estado para armazenar os itens selecionados
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
+  const [selectedItemsCar, setSelectedItemsCar] = useState<string[]>([]);
 
   const [selectedOptionPorta, setSelectedOptionPorta] = useState<string | null>(null);
   const optionsPorta = ['Sim', 'Não']; // Suas opções de Radio Button
@@ -29,7 +31,7 @@ export default function Form() {
   const validColor = () => {
     if (optionsPorta) {
       handleInputChange('descricao', ' Vão de porta')
-    }  
+    }
     if (optionsRoda) {
       handleInputChange('descricao', ' Pintura de roda')
     }
@@ -101,8 +103,20 @@ export default function Form() {
 
     if (selectedItems.includes(value)) {
       setSelectedItems(selectedItems.filter(item => item !== value));
+      console.log(selectedItems)
     } else {
       setSelectedItems([...selectedItems, value]);
+    }
+  };
+
+  // Função para lidar com seleção de itens (checkboxes)
+  const handleCheckBoxPressCar = (value: string) => {
+    if (selectedItemsCar.includes(value)) {
+      // Se já está selecionado, remove
+      setSelectedItemsCar(selectedItemsCar.filter((item) => item !== value));
+    } else {
+      // Caso contrário, adiciona
+      setSelectedItemsCar([...selectedItemsCar, value]);
     }
   };
 
@@ -506,13 +520,162 @@ export default function Form() {
               {/* Exibir input específico para 'pinturaEspecifica' */}
               {selectedItems.includes('pinturaEspecifica') && (
                 <View className='my-3'>
-                  <Text className='text-sm color-blue-900 font-semibold'>Informações sobre a Pintura Especifica:</Text>
-                  <TextInput
-                    placeholder='Detalhes sobre a Pintura Específica:'
-                    className='w-full h-12 mb-2 bg-transparent border-b border-gray-300'
-                    value={formData.descricao}
-                    onChangeText={(value) => handleInputChange('descricao', value)}
-                  />
+                  <Text className='text-sm color-blue-900 font-semibold mb-3'>Informações sobre a Pintura Especifica:</Text>
+                  <View className='flex flex-row justify-center items-center gap-4'>
+                    <View className='flex flex-col justify-between h-28 mt-4'>
+                      {/* Checkbox para-choque-traseiro */}
+                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('pchoqueTraseiro') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <TouchableOpacity
+                          onPress={() => handleCheckBoxPressCar('pchoqueTraseiro')}
+                        >
+
+                          <Image source={require('../assets/para-choque-traseirio.png')} className='w-16 h-10' />
+
+                        </TouchableOpacity>
+                      </View>
+
+                      {/* Checkbox para-choque-dianteiro */}
+                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('pchoqueDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <TouchableOpacity
+                          onPress={() => handleCheckBoxPressCar('pchoqueDireito')}
+                        >
+
+                          <Image source={require('../assets/para_choque-traseiro.png')} className='w-16 h-10' />
+
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+
+                    <View className='flex flex-col gap-2'>
+                      <View className='flex flex-row justify-center'>
+                        {/* Checkbox para-lama-traseiro-direito */}
+                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('plamaTraseirolDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('plamaTraseirolDireito')}
+                          >
+
+                            <Image source={require('../assets/para_lama-traseiro-direito.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox porta-traseira-direito */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaTraseiraDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('portaTraseiraDireito')}
+                          >
+
+                            <Image source={require('../assets/porta-traseira-direita.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox porta-frontal-direito */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaFrontalDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('portaFrontalDireito')}
+                          >
+
+                            <Image source={require('../assets/porta-dianteira-direita.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox para-lama-frontal-direito */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('plamaFrontalDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('plamaFrontalDireito')}
+                          >
+
+                            <Image source={require('../assets/para_lama-dianteiro-direito.png')} className='w-12 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+
+                      <View className='flex flex-row justify-center mt-4'>
+                        {/* Checkbox para-lama-dianteiro-esquerdo */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('plamaFrontalEsquerdo') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('plamaFrontalEsquerdo')}
+                          >
+
+                            <Image source={require('../assets/para_lama-dianteiro-esquerdo.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox porta-dianteira-esquerda */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaDianteiraEsquerda') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('portaDianteiraEsquerda')}
+                          >
+
+                            <Image source={require('../assets/porta-dianteira-esquerda.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox porta-traseira-esquerda */}
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaTraseiraEsquerda') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('portaTraseiraEsquerda')}
+                          >
+
+                            <Image source={require('../assets/porta-traseira-esquerda.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+
+                        {/* Checkbox para-lama-traseiro-esquerdo */}
+                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('plamaTraseiroEsquerdo') ? 'border-blue-500' : 'border-transparent'}`}>
+                          <TouchableOpacity
+                            onPress={() => handleCheckBoxPressCar('plamaTraseiroEsquerdo')}
+                          >
+
+                            <Image source={require('../assets/para_lama-traseiro-esquerdo.png')} className='w-11 h-12' />
+
+                          </TouchableOpacity>
+                        </View>
+                      </View>
+                    </View>
+
+                    <View className='flex flex-col justify-center items-center gap-2'>
+                      {/* Checkbox capo */}
+                      <View className={`border w-16 h-12 items-center ${selectedItemsCar.includes('capo') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <TouchableOpacity
+                          onPress={() => handleCheckBoxPressCar('capo')}
+                        >
+
+                          <Image source={require('../assets/capo.png')} className='w-16 h-10' />
+
+                        </TouchableOpacity>
+                      </View>
+
+                      {/* Checkbox capo */}
+                      <View className={`border w-14 h-14 items-center ${selectedItemsCar.includes('teto') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <TouchableOpacity
+                          onPress={() => handleCheckBoxPressCar('teto')}
+                        >
+
+                          <Image source={require('../assets/teto.png')} className='w-14 h-14' />
+
+                        </TouchableOpacity>
+                      </View>
+
+                      {/* Checkbox porta-malas */}
+                      <View className={`border w-16 h-14 items-center ${selectedItemsCar.includes('portaMalas') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <TouchableOpacity
+                          onPress={() => handleCheckBoxPressCar('portaMalas')}
+                        >
+
+                          <Image source={require('../assets/porta-malas.png')} className='w- h-auto' />
+
+                        </TouchableOpacity>
+                      </View>
+                      
+                    </View>
+                  </View>
                 </View>
 
               )}
