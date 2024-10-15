@@ -21,6 +21,7 @@ export function CardServicAtraso({ data }: CardServicProps) {
         <View>
           <Text className='text-xl font-semibold'>{data.veiculoModelo} {data.veiculoCor} {data.veiculoAno}</Text>
           <Text className='text-sm color-slate-500 font-semibold' numberOfLines={1} lineBreakMode='tail' >{data.tipoServico}</Text>
+          <Text className='text-sm color-slate-500 font-light' numberOfLines={1} lineBreakMode='tail' >{data.descricao}</Text>
           <Text className='text-sm color-slate-500' numberOfLines={1} lineBreakMode='tail' >R$:{data.precoServico},00</Text>
         </View>
         <View className='flex flex-row justify-start items-center'>

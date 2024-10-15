@@ -2,10 +2,9 @@ import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, TouchableOpacity, Alert, TextInput, Image } from 'react-native';
 import { Avatar } from '../components/avatar';
 import { MaterialIcons } from '@expo/vector-icons';
-import Constants from 'expo-constants';
+import Constants, { AppOwnership } from 'expo-constants';
 import { useRouter } from 'expo-router';
 import moment from 'moment';
-import clsx from 'clsx';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -19,26 +18,14 @@ export default function Form() {
   const [selectedItems, setSelectedItems] = useState<string[]>([]);
   const [selectedItemsCar, setSelectedItemsCar] = useState<string[]>([]);
 
-  const [selectedOptionPorta, setSelectedOptionPorta] = useState<string | null>(null);
+  const [selectedOptionPorta, setSelectedOptionPorta] = useState('');
   const optionsPorta = ['Sim', 'Não']; // Suas opções de Radio Button
 
-  const [selectedOptionRoda, setSelectedOptionRoda] = useState<string | null>(null);
+  const [selectedOptionRoda, setSelectedOptionRoda] = useState('');
   const optionsRoda = ['Sim', 'Não']; // Suas opções de Radio Button
 
-  const [selectedOptionCor, setSelectedOptionCor] = useState<string | null>(null);
+  const [selectedOptionCor, setSelectedOptionCor] = useState('');
   const optionsCor = ['Sim', 'Não']; // Suas opções de Radio Button
-
-  const validColor = () => {
-    if (optionsPorta) {
-      handleInputChange('descricao', ' Vão de porta')
-    }
-    if (optionsRoda) {
-      handleInputChange('descricao', ' Pintura de roda')
-    }
-    if (optionsCor) {
-      handleInputChange('descricao', ' Mudança de cor')
-    }
-  }
 
   // Estado para armazenar os valores dos campos de texto da Etapa 2
   const [formData, setFormData] = useState({
@@ -49,7 +36,7 @@ export default function Form() {
     veiculoCor: '',
     tipoServico: '',
     precoServico: '',
-    descricao: " ",
+    descricao: '',
     date: moment(new Date()).format('DD/MM/YYYY'),
     end: '',
     image: 'https://i.imgur.com/EdIV8pO.jpeg',
@@ -69,8 +56,39 @@ export default function Form() {
 
     const result = await response.json();
     console.log(result);
+
   };
 
+  const handleVerifyCarParts = () => {
+    const carParts = selectedItemsCar.join(', ')
+
+    let roda = ""
+    let vaoDePorta = ""
+    let cor = " "
+
+    if (selectedOptionPorta == 'Sim') {
+      vaoDePorta = "Vão de porta"
+    } else {
+      vaoDePorta = " "
+    }
+
+    if (selectedOptionRoda == 'Sim') {
+      roda = "Pintura de roda"
+    } else {
+      roda = " "
+    }
+
+    if (selectedOptionCor == 'Sim') {
+      cor = "Mudança de cor"
+    } else {
+      cor = " "
+    }
+
+    let desc = carParts + ", " + vaoDePorta + ", " + roda + ", " + cor
+
+    handleInputChange('descricao', desc)
+    console.log(carParts);
+  }
   // Hook para navegar entre telas
   const router = useRouter();
 
@@ -199,7 +217,6 @@ export default function Form() {
       setDataTermino(moment(dataAjustada).format('DD/MM/YYYY')); // Data ajustada como término
 
       handleInputChange('end', moment(dataAjustada).format('DD/MM/YYYY'))
-
     }
   };
 
@@ -484,7 +501,10 @@ export default function Form() {
                             <TouchableOpacity
                               key={index}
                               className='flex flex-row items-start  mb-2 '
-                              onPress={() => setSelectedOptionCor(option)}
+                              onPress={() => {
+                                setSelectedOptionCor(option)
+                                handleVerifyCarParts()
+                              }}
                             >
                               {/* O círculo do radio button */}
                               <View
@@ -508,6 +528,8 @@ export default function Form() {
                           <TextInput
                             placeholder='Informe a cor:'
                             className='w-full h-12 mb-2 bg-transparent border-b border-blue-400'
+                            value={formData.descricao}
+                            onChangeText={(value) => handleInputChange('descricao', value)}
                           />
                         </View>
                       )}
@@ -673,7 +695,7 @@ export default function Form() {
 
                         </TouchableOpacity>
                       </View>
-                      
+
                     </View>
                   </View>
                   <View className='flex flex-row justify-center gap-16 mt-2'>
@@ -684,7 +706,11 @@ export default function Form() {
                           <TouchableOpacity
                             key={index}
                             className='flex flex-row items-start  mb-2 '
-                            onPress={() => setSelectedOptionPorta(option)}
+                            onPress={() => {
+                              setSelectedOptionPorta(option)
+                              handleVerifyCarParts()
+                            }
+                            }
                           >
                             {/* O círculo do radio button */}
                             <View
@@ -710,7 +736,10 @@ export default function Form() {
                           <TouchableOpacity
                             key={index}
                             className='flex flex-row items-start  mb-2 '
-                            onPress={() => setSelectedOptionRoda(option)}
+                            onPress={() => {
+                              setSelectedOptionRoda(option)
+                              handleVerifyCarParts()
+                            }}
                           >
                             {/* O círculo do radio button */}
                             <View
