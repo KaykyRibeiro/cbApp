@@ -42,21 +42,39 @@ export default function Form() {
     image: 'https://i.imgur.com/EdIV8pO.jpeg',
     in_progress: true
   });
+    // Hook para navegar entre telas
+    const router = useRouter();
+
+    // Estado para controlar os passos
+    const [step, setStep] = useState(1);
 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    const response = await fetch('https://cbappservice-99860148466.us-central1.run.app/services/post', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(formData),
-    });
+    if (selectedItemsCar.length === 0) {
+      Alert.alert('Erro', 'Selecione pelo menos uma parte do carro.');
+      return;
+    } else if (selectedOptionPorta === "" && selectedOptionRoda === "" && selectedOptionCor === "") {
+      Alert.alert('Erro', 'Infprme as opções complementares.');
+      return;
+    }else if(prazo === "" && valor === ""){
+      Alert.alert('Erro', 'Infprme o prazo e o valor.');
+      return;
+    } else {
+      const response = await fetch('https://cbappservice-99860148466.us-central1.run.app/services/post', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
 
-    const result = await response.json();
-    console.log(result);
+      const result = await response.json();
+      console.log(result);
+      router.push("/(drawer)/(tabs)"); // Corrigido para React Navigation
+    }
+
 
   };
 
@@ -90,11 +108,7 @@ export default function Form() {
     handleInputChange('descricao', desc)
     console.log(carParts);
   }
-  // Hook para navegar entre telas
-  const router = useRouter();
 
-  // Estado para controlar os passos
-  const [step, setStep] = useState(1);
 
   // Função para navegar entre telas
   const handlePress = () => {
@@ -449,7 +463,7 @@ export default function Form() {
                           <TouchableOpacity
                             key={index}
                             className='flex flex-row items-start  mb-2 '
-                            
+
                             onPress={() => setSelectedOptionPorta(option)}
                           >
                             {/* O círculo do radio button */}
