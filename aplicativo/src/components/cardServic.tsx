@@ -3,14 +3,28 @@ import { Pressable, View, Image, Text } from 'react-native';
 import { Avatar } from './avatar';
 import React from 'react';
 import { Card } from '../app/(drawer)/(tabs)';
+import { useRouter } from 'expo-router'; // Importar useRouter para navegação
 
 interface CardServicProps {
   data: Card; // Tipando a prop data como o tipo Card
 }
 
+
 export function CardServic({ data }: CardServicProps) {
+  const router = useRouter();
+
+  // Função para navegar para a tela de detalhes
+  const handlePress = () => {
+    router.push({
+      pathname: '../../../detalhes',
+      params: {
+        cardData: JSON.stringify(data), // Passar o cardData como string para evitar erros
+      },
+    });
+  };
   return (
     <Pressable
+      onPress={handlePress} // Navega quando o card é pressionado
       className='bg-white h-auto rounded-lg my-3 mx-1 px-2 py-1 flex flex-row justify-start shadow-sm shadow-blue-500/40 border-b border-blue-300 '
     >
       <View className='mr-2 flex justify-center items-center'>

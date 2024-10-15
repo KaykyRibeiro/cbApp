@@ -1,10 +1,9 @@
-import { View, Text } from 'react-native';
+import { View, Text, FlatList } from 'react-native';
 import Constants from 'expo-constants';
 import { MenuButton } from '../../../components/menu-button';
 import { Avatar } from '../../../components/avatar';
 import { CardServic } from '../../../components/cardServic';
 import { CardServicAtraso } from '../../../components/cardServicAtraso';
-import { FlatList } from 'react-native-gesture-handler';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
@@ -64,14 +63,9 @@ export default function Home() {
         card => !isCardLate(card.end) && card.in_progress === true
     );
 
-    return (
-        <View className='flex-1 p-4 bg-white'>
-            <View className='w-full h-auto flex-row items-center justify-between' style={{ paddingTop: statusBarHeight + 10 }}>
-                <MenuButton />
-                <Avatar source={require('../../../assets/logo-cb.png')} size='medium' />
-            </View>
-
-            {lateAndInProgressCards.length > 0 ? (
+    const renderHeader = () => (
+        <View>
+            {lateAndInProgressCards.length > 0 && (
                 <View>
                     <View className='mt-5 border-b border-red-300'>
                         <View className='flex flex-row justify-between items-center mx-5 mb-2'>
@@ -84,9 +78,10 @@ export default function Home() {
                         data={lateAndInProgressCards}
                         keyExtractor={(item) => item.id}
                         renderItem={({ item }) => <CardServicAtraso data={item} />}
+                        scrollEnabled={false} // Desabilita a rolagem desse FlatList
                     />
                 </View>
-            ) : null}
+            )}
 
             <View className='mt-5 border-b border-gray-300'>
                 <View className='flex flex-row justify-between items-center mx-5 mb-2'>
@@ -95,17 +90,21 @@ export default function Home() {
                     </Text>
                 </View>
             </View>
+        </View>
+    );
 
-            {inProgressAndNotLateCards.length > 0 && (
-                <View>
-                    <FlatList
-                        data={inProgressAndNotLateCards}
-                        keyExtractor={(item) => item.id}
-                        renderItem={({ item }) => <CardServic data={item} />}
-                    />
-                </View>
-            )}
-
+    return (
+        <View className='flex-1 p-4 bg-white'>
+            <View className='w-full h-auto flex-row items-center justify-between' style={{ paddingTop: statusBarHeight + 10 }}>
+                <MenuButton />
+                <Avatar source={require('../../../assets/logo-cb.png')} size='medium' />
+            </View>
+            <FlatList
+                data={inProgressAndNotLateCards}
+                keyExtractor={(item) => item.id}
+                renderItem={({ item }) => <CardServic data={item} />}
+                ListHeaderComponent={renderHeader}
+            />
             <FloatBtn />
         </View>
     );
