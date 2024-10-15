@@ -56,6 +56,7 @@ export default function Form() {
     in_progress: true
   });
 
+
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
@@ -431,6 +432,7 @@ export default function Form() {
                           <TouchableOpacity
                             key={index}
                             className='flex flex-row items-start  mb-2 '
+                            
                             onPress={() => setSelectedOptionPorta(option)}
                           >
                             {/* O círculo do radio button */}
