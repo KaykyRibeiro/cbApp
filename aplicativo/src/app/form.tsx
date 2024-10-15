@@ -42,23 +42,26 @@ export default function Form() {
     image: 'https://i.imgur.com/EdIV8pO.jpeg',
     in_progress: true
   });
-    // Hook para navegar entre telas
-    const router = useRouter();
+  // Hook para navegar entre telas
+  const router = useRouter();
 
-    // Estado para controlar os passos
-    const [step, setStep] = useState(1);
+  // Estado para controlar os passos
+  const [step, setStep] = useState(1);
 
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    if (selectedItemsCar.length === 0) {
-      Alert.alert('Erro', 'Selecione pelo menos uma parte do carro.');
-      return;
-    } else if (selectedOptionPorta === "" && selectedOptionRoda === "" && selectedOptionCor === "") {
+    if (selectedItems.includes("pinturaEspecifica")) {
+      if (selectedItemsCar.length === 0) {
+        Alert.alert('Erro', 'Selecione pelo menos uma parte do carro.');
+        return;
+      }
+    }
+    if (selectedOptionPorta === "" && selectedOptionRoda === "" && selectedOptionCor === "") {
       Alert.alert('Erro', 'Infprme as opções complementares.');
       return;
-    }else if(prazo === "" && valor === ""){
+    } else if (prazo === "" && valor === "") {
       Alert.alert('Erro', 'Infprme o prazo e o valor.');
       return;
     } else {

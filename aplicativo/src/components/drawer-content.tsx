@@ -5,8 +5,24 @@ import DrawerBtn from "./drawer-btn";
 import { CustomOptions } from "../types/navigation";
 import clsx from "clsx";
 import { MaterialIcons } from "@expo/vector-icons";
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router'; // Usando o expo-router para redirecionar
 
 export function DrawerContent(drawerProps: DrawerContentComponentProps) {
+    const router = useRouter(); // Instância do router do expo-router
+
+    // Função para realizar o logout
+    const handleLogout = async () => {
+        try {
+            // Remover dados do usuário do AsyncStorage
+            await AsyncStorage.removeItem('user');
+
+            // Redirecionar para a tela de login
+            router.replace('/login');
+        } catch (error) {
+            console.error('Erro ao fazer logout:', error);
+        }
+    };
     {
         return (
             <View className="flex-1 bg-blue-50/5 overflow-hidden">
@@ -51,7 +67,10 @@ export function DrawerContent(drawerProps: DrawerContentComponentProps) {
                             })
                         }
                     </View>
-                    <Pressable className='py-2 w-full'>
+                    {/* Botão de logout */}
+                    <Pressable
+                        onPress={handleLogout} // Chama a função de logout
+                        className='py-2 w-full'>
                         <View className={clsx("flex flex-row items-center gap-4 h-14 px-6 -ml-2",)}>
                             <MaterialIcons name="exit-to-app" size={25} color="#ef4444" />
                             <Text className="text-red-600 font-subtitle text-base flex-1">

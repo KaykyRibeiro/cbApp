@@ -8,6 +8,8 @@ import axios from 'axios';
 import { useEffect, useState } from 'react';
 import React from 'react';
 import { FloatBtn } from '../../../components/float-btn';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+import { useRouter } from 'expo-router';
 
 const statusBarHeight = Constants.statusBarHeight;
 
@@ -28,6 +30,23 @@ export interface Card {
 }
 
 export default function Home() {
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const router = useRouter();
+
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            const storedUser = await AsyncStorage.getItem('user');
+            if (storedUser) {
+                // Se o usuário estiver logado, atualizamos o estado para renderizar a página principal
+                setIsLoggedIn(true);
+            } else {
+                // Se não estiver logado, redireciona para a página de login
+                router.replace('/login');
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
 
     const [cards, setCards] = useState<Card[]>([]);
 
