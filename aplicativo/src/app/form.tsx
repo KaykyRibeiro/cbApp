@@ -562,9 +562,9 @@ export default function Form() {
                   <View className='flex flex-row justify-center items-center gap-4'>
                     <View className='flex flex-col justify-between h-28 mt-4'>
                       {/* Checkbox para-choque-traseiro */}
-                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('pchoqueTraseiro') ? 'border-blue-500' : 'border-transparent'}`}>
+                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('Parachoque Traseiro') ? 'border-blue-500' : 'border-transparent'}`}>
                         <TouchableOpacity
-                          onPress={() => handleCheckBoxPressCar('pchoqueTraseiro')}
+                          onPress={() => handleCheckBoxPressCar('Parachoque Traseiro')}
                         >
 
                           <Image source={require('../assets/para-choque-traseirio.png')} className='w-16 h-10' />
@@ -573,9 +573,9 @@ export default function Form() {
                       </View>
 
                       {/* Checkbox para-choque-dianteiro */}
-                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('pchoqueDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                      <View className={`border w-20 h-10 items-center ${selectedItemsCar.includes('Parachoque Dianteiro') ? 'border-blue-500' : 'border-transparent'}`}>
                         <TouchableOpacity
-                          onPress={() => handleCheckBoxPressCar('pchoqueDireito')}
+                          onPress={() => handleCheckBoxPressCar('Parachoque Dianteiro')}
                         >
 
                           <Image source={require('../assets/para_choque-traseiro.png')} className='w-16 h-10' />
@@ -587,9 +587,9 @@ export default function Form() {
                     <View className='flex flex-col gap-2'>
                       <View className='flex flex-row justify-center'>
                         {/* Checkbox para-lama-traseiro-direito */}
-                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('plamaTraseirolDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('Paralama Tras L/D') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('plamaTraseirolDireito')}
+                            onPress={() => handleCheckBoxPressCar('Paralama Tras L/D')}
                           >
 
                             <Image source={require('../assets/para_lama-traseiro-direito.png')} className='w-11 h-12' />
@@ -598,9 +598,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox porta-traseira-direito */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaTraseiraDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Porta Tras L/D') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('portaTraseiraDireito')}
+                            onPress={() => handleCheckBoxPressCar('Porta Tras L/D')}
                           >
 
                             <Image source={require('../assets/porta-traseira-direita.png')} className='w-11 h-12' />
@@ -609,9 +609,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox porta-frontal-direito */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaFrontalDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Porta Diant L/D') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('portaFrontalDireito')}
+                            onPress={() => handleCheckBoxPressCar('Porta Diant L/D')}
                           >
 
                             <Image source={require('../assets/porta-dianteira-direita.png')} className='w-11 h-12' />
@@ -620,9 +620,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox para-lama-frontal-direito */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('plamaFrontalDireito') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Paralama Diant L/D') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('plamaFrontalDireito')}
+                            onPress={() => handleCheckBoxPressCar('Paralama Diant L/D')}
                           >
 
                             <Image source={require('../assets/para_lama-dianteiro-direito.png')} className='w-12 h-12' />
@@ -633,9 +633,9 @@ export default function Form() {
 
                       <View className='flex flex-row justify-center mt-4'>
                         {/* Checkbox para-lama-dianteiro-esquerdo */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('plamaFrontalEsquerdo') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Paralama Diant L/E') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('plamaFrontalEsquerdo')}
+                            onPress={() => handleCheckBoxPressCar('Paralama Diant L/E')}
                           >
 
                             <Image source={require('../assets/para_lama-dianteiro-esquerdo.png')} className='w-11 h-12' />
@@ -644,9 +644,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox porta-dianteira-esquerda */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaDianteiraEsquerda') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Porta Diant L/E') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('portaDianteiraEsquerda')}
+                            onPress={() => handleCheckBoxPressCar('Porta Diant L/E')}
                           >
 
                             <Image source={require('../assets/porta-dianteira-esquerda.png')} className='w-11 h-12' />
@@ -655,9 +655,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox porta-traseira-esquerda */}
-                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('portaTraseiraEsquerda') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 ${selectedItemsCar.includes('Porta Tras L/E') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('portaTraseiraEsquerda')}
+                            onPress={() => handleCheckBoxPressCar('Porta Tras L/E')}
                           >
 
                             <Image source={require('../assets/porta-traseira-esquerda.png')} className='w-11 h-12' />
@@ -666,9 +666,9 @@ export default function Form() {
                         </View>
 
                         {/* Checkbox para-lama-traseiro-esquerdo */}
-                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('plamaTraseiroEsquerdo') ? 'border-blue-500' : 'border-transparent'}`}>
+                        <View className={`border w-12 h-12 pt-0.5 ${selectedItemsCar.includes('Paralama Tras L/E') ? 'border-blue-500' : 'border-transparent'}`}>
                           <TouchableOpacity
-                            onPress={() => handleCheckBoxPressCar('plamaTraseiroEsquerdo')}
+                            onPress={() => handleCheckBoxPressCar('Paralama Tras L/E')}
                           >
 
                             <Image source={require('../assets/para_lama-traseiro-esquerdo.png')} className='w-11 h-12' />
@@ -702,9 +702,9 @@ export default function Form() {
                       </View>
 
                       {/* Checkbox porta-malas */}
-                      <View className={`border w-16 h-8 items-center ${selectedItemsCar.includes('portaMalas') ? 'border-blue-500' : 'border-transparent'}`}>
+                      <View className={`border w-16 h-8 items-center ${selectedItemsCar.includes('Porta Malas') ? 'border-blue-500' : 'border-transparent'}`}>
                         <TouchableOpacity
-                          onPress={() => handleCheckBoxPressCar('portaMalas')}
+                          onPress={() => handleCheckBoxPressCar('Porta Malas')}
                         >
 
                           <Image source={require('../assets/porta-malas.png')} className='w-16 h-8' />
