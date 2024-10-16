@@ -57,12 +57,18 @@ export default function Form() {
         Alert.alert('Erro', 'Selecione pelo menos uma parte do carro.');
         return;
       }
+      if (selectedOptionPorta === "" && selectedOptionRoda === "") {
+        Alert.alert('Erro', 'Informe as opções complementares.');
+        return;
+      }
     }
-    if (selectedOptionPorta === "" && selectedOptionRoda === "" && selectedOptionCor === "") {
-      Alert.alert('Erro', 'Infprme as opções complementares.');
-      return;
+    if (selectedItems.includes("pinturaCompleta")) {
+      if (selectedOptionPorta === "" && selectedOptionRoda === "" && selectedOptionCor === "") {
+        Alert.alert('Erro', 'Informe as opções complementares.');
+        return;
+      }
     } else if (prazo === "" && valor === "") {
-      Alert.alert('Erro', 'Infprme o prazo e o valor.');
+      Alert.alert('Erro', 'Informe o prazo e o valor.');
       return;
     } else {
       const response = await fetch('https://cbappservice-99860148466.us-central1.run.app/services/post', {
@@ -84,32 +90,22 @@ export default function Form() {
   const handleVerifyCarParts = () => {
     const carParts = selectedItemsCar.join(', ')
 
-    let roda = ""
-    let vaoDePorta = ""
-    let cor = " "
+    let desc = carParts
 
     if (selectedOptionPorta == 'Sim') {
-      vaoDePorta = "Vão de porta"
-    } else {
-      vaoDePorta = " "
+      desc += ", Vão de porta"
     }
 
     if (selectedOptionRoda == 'Sim') {
-      roda = "Pintura de roda"
-    } else {
-      roda = " "
+      desc += ", Pintura de roda"
     }
 
     if (selectedOptionCor == 'Sim') {
-      cor = "Mudança de cor"
-    } else {
-      cor = " "
+      desc += ", Mudança de cor"
     }
 
-    let desc = carParts + ", " + vaoDePorta + ", " + roda + ", " + cor
-
     handleInputChange('descricao', desc)
-    console.log(carParts);
+    console.log(desc);
   }
 
 
@@ -522,7 +518,6 @@ export default function Form() {
                               className='flex flex-row items-start  mb-2 '
                               onPress={() => {
                                 setSelectedOptionCor(option)
-                                handleVerifyCarParts()
                               }}
                             >
                               {/* O círculo do radio button */}
@@ -727,7 +722,6 @@ export default function Form() {
                             className='flex flex-row items-start  mb-2 '
                             onPress={() => {
                               setSelectedOptionPorta(option)
-                              handleVerifyCarParts()
                             }
                             }
                           >
@@ -757,7 +751,6 @@ export default function Form() {
                             className='flex flex-row items-start  mb-2 '
                             onPress={() => {
                               setSelectedOptionRoda(option)
-                              handleVerifyCarParts()
                             }}
                           >
                             {/* O círculo do radio button */}
@@ -813,6 +806,7 @@ export default function Form() {
                   placeholder="Valor do serviço:"
                   value={valor}
                   onChangeText={handleValorChange}
+                  onPress={handleVerifyCarParts}
                   keyboardType="numeric" // Permite apenas números
                   className="w-full h-12 mb-2 bg-transparent border-b border-blue-300"
                 />
