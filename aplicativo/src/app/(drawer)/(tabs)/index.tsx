@@ -41,7 +41,7 @@ export default function Home() {
                 setIsLoggedIn(true);
             } else {
                 // Se não estiver logado, redireciona para a página de login
-                router.replace('/login');
+                router.replace('./login');
             }
         };
 
