@@ -1,34 +1,39 @@
-// app/login.tsx
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Pressable, Image, TextInput } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useRouter } from 'expo-router';
 import axios from 'axios';
 
 export default function Login() {
-  const [user, setUser] = useState('');
-  const [password, setPassword] = useState('');
+  const [inputUser, setInputUser] = useState(''); // Estado para armazenar o valor inserido pelo usuário
+  const [inputPassword, setInputPassword] = useState(''); // Estado para armazenar a senha inserida
+  const [apiUsers, setApiUsers] = useState([]); // Estado para armazenar os dados retornados da API
   const router = useRouter();
 
   useEffect(() => {
     // Função para buscar os dados da API
-    const fetchCards = async () => {
+    const fetchUsers = async () => {
       try {
-        const response = await axios.get('https://cbappservice-99860148466.us-central1.run.app/services/get'); // Altere a URL para seu backend real
-        setCards(response.data);
+        const response = await axios.get('https://cbappservice-99860148466.us-central1.run.app/user/get'); // URL ajustada para buscar a tabela de usuários
+        setApiUsers(response.data);
       } catch (error) {
-        console.error('Erro ao buscar os dados', error);
+        console.error('Erro ao buscar os dados dos usuários', error);
       }
     };
 
-    fetchCards();
+    fetchUsers();
   }, []);
 
-
   const handleLogin = async () => {
-    if (user === 'admin' && password === 'admin') {
+    // Verifica se o usuário inserido existe na lista de usuários retornada pela API e se a senha está correta
+    const userFound = apiUsers.find(
+      (user: { nomeUsuario: string; senha: string }) => 
+        user.nomeUsuario === inputUser && user.senha === inputPassword
+    );
+
+    if (userFound) {
       // Salva as informações do usuário
-      await AsyncStorage.setItem('user', JSON.stringify({ user }));
+      await AsyncStorage.setItem('user', JSON.stringify({ inputUser }));
 
       // Redireciona para a tela de detalhes
       router.push('/(drawer)/(tabs)');
@@ -44,13 +49,15 @@ export default function Login() {
         <TextInput
           className="w-80 h-12 border-b border-gray-300 rounded-md px-4 mb-4"
           placeholder="User"
-          onChangeText={setUser}
+          value={inputUser}
+          onChangeText={setInputUser} // Atualiza o estado com o valor inserido pelo usuário
         />
         <TextInput
           className="w-80 h-12 border-b border-gray-300 rounded-md px-4"
           placeholder="Senha"
           secureTextEntry={true}
-          onChangeText={setPassword}
+          value={inputPassword}
+          onChangeText={setInputPassword} // Atualiza o estado com a senha inserida
         />
         <View className='flex justify-start w-80 px-2'>
           <Pressable>
@@ -67,11 +74,3 @@ export default function Login() {
     </View>
   );
 }
-function useEffect(arg0: () => void, arg1: never[]) {
-  throw new Error('Function not implemented.');
-}
-
-function setCards(data: any) {
-  throw new Error('Function not implemented.');
-}
-
