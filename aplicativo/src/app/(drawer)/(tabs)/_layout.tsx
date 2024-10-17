@@ -30,7 +30,7 @@ export default function TabLayout() {
             <Tabs.Screen
                 name="historico"
                 options={{
-                    tabBarLabel: 'Histótico',
+                    tabBarLabel: 'Histórico',
                     tabBarIcon: ({ size, color }) => (
                         <MaterialIcons name="search" size={size} color={color} />
                     )

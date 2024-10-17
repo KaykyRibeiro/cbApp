@@ -70,7 +70,8 @@ export default function Form() {
     } else if (prazo === "" && valor === "") {
       Alert.alert('Erro', 'Informe o prazo e o valor.');
       return;
-    } else {
+    } 
+    
       const response = await fetch('https://cbappservice-99860148466.us-central1.run.app/services/post', {
         method: 'POST',
         headers: {
@@ -82,7 +83,7 @@ export default function Form() {
       const result = await response.json();
       console.log(result);
       router.push("/(drawer)/(tabs)"); // Corrigido para React Navigation
-    }
+    
 
 
   };
